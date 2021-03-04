@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wishing App</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            font-size: larger;
+        }
+        </style>
+</head>
+<body>
+    <h1>Hello {{loggedinUser.first_name}} {{loggedinUser.last_name}}!</h1>
+    <a href="/logout">Logout</a><br><br>
+    <a href="/stats"><button>View stats</button></a><br><br>
+    <a href="/wishes/new"><button>Make a Wish!</button></a><br><br>
+    <table>
+        <h1>Your wish list:</h1>
+        <tr>
+            <th>Item</th>
+            <th>Date added</th>
+            <th>Actions</th>
+        </tr>
+        {% for wish in loggedinUser.wishes.all %}
+        {% if wish.granted == False %}
+        <tr>
+            <td>{{wish.wish}}</td>
+            <td>{{wish.created_at.date}}</td>
+            <td><a href="/delete/{{wish.id}}">Remove</a> | <a href="/edit/{{wish.id}}">Edit</a> | <a href="/grant/{{wish.id}}">Granted!</a></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    <table>
+        <h1>Granted wishes:</h1>
+        <tr>
+            <th>Item</th>
+            <th>Wisher</th>
+            <th>Date added</th>
+            <th>Date granted</th>
+            <th>Likes</th>
+            <th>Actions</th>
+        </tr>
+        {% for wish in allWishes %}
+        {% if wish.granted == True %}
+        <tr>
+            <td>{{wish.wish}}</td>
+            <td>{{wish.user.first_name}}</td>
+            <td>{{wish.created_at.date}}</td>
+            <td>{{wish.updated_at.date}}</td>
+            <td>{{wish.liked.count}}</td>
+            {% for wishes in userwishes %}
+            {% if wish.id == wishes.id  %}
+            <td><a href="/like/{{wish.id}}">Like</a></td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wishing App</title>
+</head>
+<body>
+    <h1>Hello {{loggedinUser.first_name}} {{loggedinUser.last_name}}! These are your stats!</h1>
+    <a href="/logout">Logout</a><br><br>
+    <a href="/wishes">Dashboard</a><br><br>
+    <h2>Total wishes granted so far for all users: {{grantedwishes.count}}</h2>
+    <h2>Your granted wishes:{{truewishes.count}} </h2>
+    <h2>Your pending wishes: {{pendingwishes.count}}</h2>
+</body>
+</html>
